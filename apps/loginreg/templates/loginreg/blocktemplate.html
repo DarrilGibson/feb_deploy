@@ -1,0 +1,51 @@
+{% extends "loginreg/layout.html" %}
+
+{% block title %}Login and Registration{% endblock %}
+
+{% block body %}
+
+<div id="header" class="bluegrad">
+  <h2>Login and Registration</h2>
+</div> <!-- end of header -->
+
+{# ---------------- Menu section if desired ---------------------------- #}
+{% comment %}
+<div id="myhdrmenu" >
+  <ul>
+   <li><a href="/"> Home </a></li>
+  </ul>
+ </div><!--  End of headermenu -->
+ {% endcomment %}
+
+ {# ---------------- Secondary header if desired ---------------------------- #}
+ {% comment %}{% endcomment %}
+ <div class="secondhdr">
+  <div class="secondhdrleft">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <h2>Welcome {{ request.session.first_name }}</h2>
+    {% else %}
+      <h2>Welcome</h2>
+    {% endif %}
+  </div>
+  <div class="secondhdrctr">
+  </div>
+  <div class="secondhdrright">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <p><a href="logout">log off</a></p>
+    {% else %}
+      <p><a href="/">log in</a></p>
+    {% endif %}
+  </div>
+ </div>
+ {# ---------------- Content Section  ---------------------------- #}
+<section class="container">
+    <div class="leftbox">
+    </div><!-- End of left box -->
+
+    <div class="rightbox">
+    </div><!-- End of right box -->
+</section><!-- End of section for side-by-side boxes -->
+<a href="/">Home</a> | <a href="show">Show Registered Users</a>
+{% endblock %}

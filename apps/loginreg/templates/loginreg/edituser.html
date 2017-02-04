@@ -1,0 +1,77 @@
+{% extends "loginreg/layout.html" %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+
+<div id="header" class="bluegrad">
+  <h2>Edit User</h2>
+</div> <!-- end of header -->
+
+{# ---------------- Menu section if desired ---------------------------- #}
+{% comment %}
+<div id="myhdrmenu" >
+  <ul>
+   <li><a href="/"> Home </a></li>
+  </ul>
+ </div><!--  End of headermenu -->
+ {% endcomment %}
+
+ {# ---------------- Secondary header if desired ---------------------------- #}
+ {% comment %}{% endcomment %}
+ <div class="secondhdr">
+  <div class="secondhdrleft">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <h2>Welcome {{ request.session.first_name }}</h2>
+    {% else %}
+      <h2>Welcome2</h2>
+    {% endif %}
+  </div>
+  <div class="secondhdrctr">
+  </div>
+  <div class="secondhdrright">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <p><a href="logout">log off</a></p>
+    {% else %}
+      <p><a href="/">log in</a></p>
+    {% endif %}
+  </div>
+ </div>
+ {# ---------------- Content Section  ---------------------------- #}
+{% comment %}
+<section class="container">
+    <div class="leftbox">
+    </div><!-- End of left box -->
+
+    <div class="rightbox">
+    </div><!-- End of right box -->
+</section><!-- End of section for side-by-side boxes -->
+{% endcomment %}
+
+<div class="aligned-form">
+  <h2>Update user data</h2>
+  <form action='/edituser' method='POST' >
+    {% csrf_token %}
+    {% for user in users %}
+      <label for="first_name"><span>First name: </span><input type="text" name="editfirstname"  value={{ user.first_name }}></label>
+      <label for="last_name"><span>Last name: </span><input type="text" name="editlastname"  value={{ user.last_name }}></label>
+      <label for="email"><span>Email: </span><input type="text" name="editemail"  value={{ user.email }} readonly></label>
+      <p><input type="submit" class="button-primary" value="Update User"></p>
+		{% empty %}
+				<p>Sorry, that user doesn't exist.</p>
+    {% endfor %}
+  </form>
+  <p>Note that the email is used for logging on and cannot be modified.<p>
+    <!-- Put div within errors to hide it until needed -->
+      {% if messages %}
+        <div class="errorDiv">
+          {% for error in messages %}
+            <p>{{error}}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+<div>
+<a href="/">Home</a>
+{% endblock %}

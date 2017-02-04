@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      {% comment %}
+       <p>Text within block title is default if another title isn't specified</p>
+
+      {% endcomment %}
+        <title>{% block title %}Are You Ready?{% endblock %}</title>
+    </head>
+
+    <body>
+         {% block body_block %}{% endblock %}
+         {% comment %}
+          <p>Template blocks developed from this tutorial</p>
+          http://www.tangowithdjango.com/book/chapters/templates.html
+          and here
+          https://docs.djangoproject.com/en/1.10/ref/templates/language/
+         {% endcomment %}
+    </body>
+</html>

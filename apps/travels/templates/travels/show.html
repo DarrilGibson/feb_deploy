@@ -1,0 +1,72 @@
+{% extends "travels/layout.html" %}
+
+{% block title %}Travel Plans{% endblock %}
+
+{% block body %}
+
+<div id="header" class="bluegrad">
+  <h2>Registered Users</h2>
+</div> <!-- end of header -->
+
+{# ---------------- Menu section if desired ---------------------------- #}
+{% comment %}
+<div id="myhdrmenu" >
+  <ul>
+   <li><a href="/"> Home </a></li>
+  </ul>
+</div><!--  End of headermenu -->
+ {% endcomment %}
+
+ {# ---------------- Secondary header if desired ---------------------------- #}
+ {% comment %}{% endcomment %}
+ <div class="secondhdr">
+  <div class="secondhdrleft">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <h2>Welcome {{ request.session.firstname }}</h2>
+    {% else %}
+      <h2>Welcome</h2>
+    {% endif %}
+  </div>
+  <div class="secondhdrctr">
+    <p><a href="/">Home | </a>
+  </div>
+  <div class="secondhdrright">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <p><a href="logout">log off</a></p>
+    {% else %}
+      <p><a href="/">log in</a></p>
+    {% endif %}
+  </div>
+ </div>
+
+
+ <div>
+   <h2>Add a Trip</h2>
+
+   {% comment %}
+   {% if request.session.errors %}
+     <div class="errorDiv">
+       {% for error in messages %}
+         <p>{{error}}</p>
+       {% endfor %}
+     </div>
+   {% endif %}
+   {% endcomment %}
+   <p class="red">{{request.session.error}}</p>
+   <div class="aligned-form">
+     <form action='create' method='POST'>
+       {% csrf_token %}
+       <label for="item"><span>Item/Product: </span><input type="text" name="item"  value={{ request.session.item }}></label>
+       <p><input type="submit" class="button-primary" value="Add"></p>
+     </form>
+   </div>
+
+  {% for message in messages %}
+    <p class="red">{{ message }}</p>
+  {% endfor %}
+</div>
+
+<a href="/">Home</a> | <a href="show">Refresh page</a>
+{% endblock %}

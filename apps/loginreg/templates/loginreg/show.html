@@ -1,0 +1,69 @@
+{% extends "loginreg/layout.html" %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+
+<div id="header" class="bluegrad">
+  <h2>Registered Users</h2>
+</div> <!-- end of header -->
+
+{# ---------------- Menu section if desired ---------------------------- #}
+{% comment %}
+<div id="myhdrmenu" >
+  <ul>
+   <li><a href="/"> Home </a></li>
+  </ul>
+</div><!--  End of headermenu -->
+ {% endcomment %}
+
+ {# ---------------- Secondary header if desired ---------------------------- #}
+ {% comment %}{% endcomment %}
+ <div class="secondhdr">
+  <div class="secondhdrleft">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <h2>Welcome {{ request.session.firstname }}</h2>
+    {% else %}
+      <h2>Welcome</h2>
+    {% endif %}
+  </div>
+  <div class="secondhdrctr">
+  </div>
+  <div class="secondhdrright">
+    <!-- If session,  -->
+    {% if request.session.login == "True" %}
+      <p><a href="logout">log off</a></p>
+    {% else %}
+      <p><a href="/">log in</a></p>
+    {% endif %}
+  </div>
+ </div>
+
+<div class="emailDiv">
+  <h2 class="underline">Email Addresses Entered</h2>
+  <table class=emailtable>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email Address</th>
+      <th>Date Created</th>
+      <th>Action</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{user.first_name}}
+        <td>{{user.last_name}}
+        <td>{{user.email}}</td>
+        <td>{{user.created_at }}</td>
+        <td><a href="/show/{{user.id}}/delete">Delete</a> | <a href="/show/{{user.id}}/edit">Edit</a> </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% for message in messages %}
+    <p class="red">{{ message }}</p>
+  {% endfor %}
+</div>
+
+<a href="/">Home</a> | <a href="show">Refresh page</a>
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Show Registered Users</title>
+      {% load staticfiles %}
+      <link rel="stylesheet" href="{% static 'loginreg/css/normalize.css' %}">
+      <link rel="stylesheet" href="{% static 'loginreg/css/styles.css' %}">
+      <link rel="stylesheet" href="{% static 'loginreg/css/form.css' %}">
+    </head>
+    </head>
+    <body>
+      <div id="wrapper">
+        <div id="header">
+          <h2>Registered Users</h2>
+        </div> <!-- end of header -->
+        <div class="secondhdr">
+         <div class="secondhdrleft">
+           <h2>Welcome {{ request.session.first_name }}</h2>
+         </div>
+         <div class="secondhdrctr">
+           {% comment %}
+           {% endcomment %}
+         </div>
+         <div class="secondhdrright">
+           <!-- If session,  -->
+           {% if request.session.login == "True"  %}
+             <p>Right <a href="../logout">Logout</a>right</p>
+           {% else %}
+             <p>Not logged in</p>
+           {% endif %}
+         </div>
+      </div> <!-- end of second header (menu items) -->
+
+      <h2>Hide for non-administrators</h2>
+        <div class="emailDiv">
+        <h2 class="underline">Email Addresses Entered</h2>
+        <table class=emailtable>
+          <tr>
+            <th>Email Address</th>
+            <th>Date Created</th>
+            <th>Action</th>
+          </tr>
+          {% for user in users %}
+          <tr>
+              <td>{{user.email}}</td>
+              <td>{{user.created_at }}</td>
+              <td><a href="/show/{{user.id}}/delete">Delete Email</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+      <a href="/">Home</a>
+        </div>
+      </div>  <!-- end of wrapper -->
+    </body>
+</html>

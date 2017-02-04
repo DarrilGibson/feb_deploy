@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      {% comment %}
+       <p>Text within block title is default if another title isn't specified</p>
+      {% endcomment %}
+        <title>{% block title %}Let's Have Some Fun{% endblock %}</title>
+      {% load staticfiles %}
+      <link rel="stylesheet" href="{% static 'travels/css/normalize.css' %}">
+      <link rel="stylesheet" href="{% static 'travels/css/styles.css' %}">
+      <link rel="stylesheet" href="{% static 'travels/css/form.css' %}">
+    </head>
+    <body>
+      <div id="wrapper">
+          {% block body %}{% endblock %}
+        <div id="footer" class="graygrad">
+          {% comment %}
+          <p>{{ session.quote }}</p>
+          {% endcomment %}
+        <div>
+      </div>
+ </body>
+</html>

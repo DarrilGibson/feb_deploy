@@ -1,0 +1,81 @@
+{% extends "travels/layout.html" %}
+
+{% block title %}Travel Dashboard{% endblock %}
+
+{% block body %}
+
+<div id="header" class="bluegrad">
+  <h2>Happy Travels</h2>
+</div> <!-- end of header -->
+{# ---------------- Secondary header if desired ---------------------------- #}
+{% comment %}{% endcomment %}
+<div class="secondhdr">
+ <div class="secondhdrleft">
+   <!-- If session,  -->
+   {% if request.session.login == "True" %}
+     <h2>Welcome {{ request.session.firstname }}</h2>
+   {% else %}
+     <h2>Welcome</h2>
+   {% endif %}
+ </div>
+ <div class="secondhdrctr">
+ </div>
+ <div class="secondhdrright">
+   <!-- If session,  -->
+   {% if request.session.login == "True" %}
+     <p><a href="../logout">Logout</a></p>
+    {% else %}
+      <p><a href="/">log in</a></p>
+   {% endif %}
+ </div>
+</div>   <!-- end of second header  -->
+  <div>
+    <h4>Your Trip Schedules</h4>
+    <table>
+      <thead>
+        <th> Destination</th>
+        <th> Travel Start Date</th>
+        <th> Travel End Date</th>
+        <th> Plan</th>
+      </thead>
+      <tbody>
+        {% for travel in usertravels %}
+          <tr>
+            <td> <a href="/travels/{{travel.id}}/show"> {{ travel.destination }} </a></td>
+            <td>{{ travel.travelstart   }}</td>
+            <td>{{ travel.travelend   }}</td>
+            <td>{{ travel.plan }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p><a href="show">Add Travel Plan</a></p>
+  </div><!-- End of user travels -->
+  <div>
+    <h4>Other User's Travel Plans</h4>
+      <table >
+        <thead>
+          <th> Name</th>
+          <th> Destination</th>
+          <th> Travel Start Date</th>
+          <th> Travel End Date</th>
+          <th> Do You Want to Join?</th>
+        </thead>
+        <tbody>
+          {% for travel in alltravels %}
+            <tr>
+              <td>{{ travel.traveler.first_name }}  {{ travel.traveler.last_name }}</td>
+              <td>{{ travel.plan }}</td>
+              <td>{{ travel.travelstart }}</td>
+              <td>{{ travel.travelend  }}</td>
+              <td><a href="/travels/{{travel.id}}/addother">Join</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div><!-- End of right box -->
+  <p><a href="../logout">Logout</a></p>
+  {% comment %}
+  {% endcomment %}
+</section>
+{% endblock %}
